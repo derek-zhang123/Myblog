@@ -1,0 +1,87 @@
+
+{% load blog_tags %}
+
+{% block toc %}{% endblock %}
+
+<div class="row">
+    <div class="widget">
+        <h3>最新博客</h3>
+        {% get_recent_entries as recent_entry_list %}
+
+        {% for entry in recent_entry_list %}
+            <div>
+                <a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a>
+                <div>{{ entry.author }}   发表于：{{ entry.created_time|date:"Y年m月d日" }}</div><br>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="widget">
+        <h3>推荐博客</h3>
+        {% get_popular_entries as popular_entry_list %}
+
+        {% for entry in popular_entry_list %}
+            <div>
+                <a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a>
+                <span class="badge" style="color: white;background-color: darkgreen">{{ entry.visiting }}</span>
+            </div><br>
+        {% endfor %}
+    </div>
+</div>
+
+ <div class="row">
+    <div class="widget">
+        <h3>分类:</h3>
+        {% get_categories as category_list %}
+        <ul class="list-group">
+        {% for category in category_list %}
+            <li class="list-group-item">
+                <a href="{% url 'blog:blog_category' category.id %}">{{ category.name }}</a>
+                <span class="badge">{% get_entry_count_of_category category.name %}</span>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="widget">
+        <h3>归档:</h3>
+        {% archives as date_list %}
+        <ul class="list-group">
+        {% for date in date_list %}
+            <li class="list-group-item">
+                <a href="{% url 'blog:blog_archives' date.year date.month %}">
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                    {{ date.year }} 年 {{ date.month }} 月
+                    <span class="badge">{% get_entry_count_of_date date.year date.month %}</span>
+                </a>
+
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="widget" >
+        <h3>标签云:</h3>
+        {% get_tags as tag_list %}
+        {% for tag in tag_list %}
+                <a href="{% url 'blog:blog_tag' tag.id %}" style="font-size: 20px;">
+                    <span style="padding: 5px;" class="label {% cycle 'label-default' 'label-primary' 'label-success' 'label-info' 'label-warning' 'label-danger' %}">{{ tag.name }}</span>
+                </a>&nbsp;
+        {% endfor %}
+    </div>
+</div>
+
+<hr>
+<div class="row">
+    <div class="rss">
+        <a href="/latest/feed/"><i class="glyphicon glyphicon-plus"></i>RSS 订阅</a>
+    </div>
+</div>
+<hr>

@@ -1,0 +1,84 @@
+{% extends 'blog/base.html' %}
+{% load comments %}
+{% load static %}
+{% block title %}回复评论{% endblock %}
+{% block css %}
+
+    <link rel="stylesheet" href="{% static 'blog/css/blog_comment.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid" style="margin: 30px 50px 0 50px;min-height: 450px;">
+        <div class="row">
+            <div class="single_comment">
+                <div>
+                    {% if request.session.login %}
+                    <img src="{{ parent_comment.user_img }}" alt="user_img" />
+                    {% else %}
+                    <img src="{% static 'blog/images/cl.jpg' %}" alt="admin_img" />
+                    {% endif %}
+                </div>
+            <div class="col-md-11">
+                <strong>{{ parent_comment.comment_title }}</strong>
+                <div class="small">
+                    <strong>{{ parent_comment.username }} {{ request.user }}</strong>
+                    <em>{{ parent_comment.submit_date }}</em>
+                </div>
+                <br />
+                <p>{{ parent_comment.comment }}</p>
+            </div>
+
+            </div>
+        </div>
+            <br />
+        {% if request.session.login or request.user.is_authenticated %}
+            <div class="row" style="margin-left: 30px;">
+            <h3>回复&nbsp;&nbsp;&nbsp;{{ parent_comment.username }}{{ request.user }}&nbsp;&nbsp;&nbsp;的评论：</h3>
+            {% get_comment_form for parent_comment.content_object as form %}
+                    <form class="form-horizontal" action="{% comment_form_target %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="input_title" class="pull-left control-label">评论标题：</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" name="comment_title" id="input_title" placeholder="请输入标题" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input_comment" class="pull-left control-label">评论内容:</label>
+                            <div class="col-sm-6">
+                            <textarea style="resize:none;" class="form-control" rows=6 name="comment" id="input_comment" placeholder="在此输入评论" required></textarea>
+                            </div>
+                        </div>
+                        <span style="display: none;">{{ form.honeypot }}</span>
+                        {{ form.content_type }}
+                        {{ form.object_pk }}
+                        {{ form.timestamp }}
+                        {{ form.security_hash }}
+
+                        <input type="hidden" name="next" value="{% url 'blog:blog_detail' parent_comment.content_object.id %}" />
+                        <input  name="parent_id" type="hidden" value="{{ parent_comment.id }}" />
+                        <input  name="level" type="hidden" value="{{ parent_comment.level }}" />
+
+                        <div class="form-group col-sm-7">
+                            <div class="pull-left" style="margin-left: 68px;">
+                                <button type="reset"  class="btn btn-default"><span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;重置</button>
+                            </div>
+                            <div class="pull-right" style="margin-right: 12px;">
+                                <button type="submit" class="btn btn-success" id="id_submit"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;评论</button>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+        {% else %}
+            <h3>登陆后才可以评论</h3>
+        {% endif %}
+        <br />
+
+    <div>
+        <a href="{% url 'blog:blog_detail' parent_comment.content_object.id %}">暂时不评论，返回先前页面!</a>
+    </div>
+
+    </div>
+{% endblock %}

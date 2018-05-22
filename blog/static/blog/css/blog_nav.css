@@ -1,0 +1,131 @@
+body {
+    margin-top: 30px;
+    font-weight: 400;
+    /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
+    padding-top: 70px;
+}
+
+/* Navbar and footer (global) styling */
+.navbar-fixed-top .nav {
+    padding: 15px 0;
+}
+
+.navbar {
+    color: black;
+    border-width: thin;
+    -webkit-transition: .2s;
+    background-color: white;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: white;
+}
+
+.navbar a {
+    color: black;
+}
+
+.navbar-fixed-top .navbar-brand {
+    padding: 0 15px;
+}
+
+.navbar-header .icon-bar {
+    background-color: black;
+}
+
+.navbar-nav > li > .navbar-active {
+    color: #E46E2E;
+}
+
+.navbar-scroll {
+  background-color: white;
+    animation-duration: 2s;
+    animation-name: smooth;
+    -moz-box-shadow: 1px 1px 1px #999;
+    -webkit-box-shadow: 1px 1px 1px #999;
+    box-shadow: 1px 1px 1px #999;
+}
+
+.jupytercon-nav > li > .black-tab {
+    color: black;
+}
+
+.navbar-logo {
+    height: 45px;
+}
+
+.nav > li > a {
+    font-size: 20px;
+    padding: 12px 16px 10px;
+}
+
+.nav > li > a:hover {
+    background-color: transparent;
+    color: #E46E2E;
+    -webkit-transition: .2s;
+}
+
+.nav > li > a:focus {
+    background-color: white;
+}
+
+.nav > li > a:active {
+    background-color: #F8F8F8;
+}
+
+.nav > li > a:visited {
+    background-color: #F8F8F8;
+}
+
+.tab:hover {
+    background-color: transparent;
+    color: #E46E2E;
+}
+
+.footer {
+    background-color: #979797;
+}
+
+.footer p {
+    color: white;
+    padding-top: 10px;
+}
+
+.footer li {
+    color: white;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer li::after {
+    content:" |";
+}
+
+.footer li:last-of-type::after {
+    content:"";
+}
+
+.footer-text {
+    font-size: 16px;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.navbar-brand {
+    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 20px;
+    line-height: 20px;
+    margin-top: 27px;
+}
+
+nav .navbar-form{
+    padding: 10px;
+}
+
+
+

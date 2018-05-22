@@ -1,0 +1,10 @@
+{% extends 'blog/base.html' %}
+{% block title %}403{% endblock %}
+
+{% block content %}
+    <section class="container text-center" style="min-height:600px;">
+        <h1>403, Forbidden!</h1>
+        <p>你没有权限访问该页面</p>
+        <a class="btn btn-primary" href="{% url 'blog:blog_index' %}">返回主页</a>
+    </section>
+{% endblock %}

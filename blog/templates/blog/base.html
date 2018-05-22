@@ -1,0 +1,100 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'blog/css/blog_nav.css' %}" rel="stylesheet">
+    <link href="{% static 'blog/css/back-to-top.css' %}" rel="stylesheet">
+    {% block css %}{% endblock %}
+
+</head>
+<body>
+
+<nav class="navbar navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#my-nav"
+                    aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Zhang_derek</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="my-nav">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/blog/">博客</a></li>
+                <li><a href="#">学习资源</a></li>
+                <li><a href="#">联系我</a></li>
+            </ul>
+
+            <form class="navbar-form navbar-left" action="{% url 'blog:blog_search' %}">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search" name="keyword">
+                </div>
+                <button type="submit" class="btn btn-default">搜索</button>
+            </form>
+
+            <ul class="nav navbar-nav navbar-right">
+                {% if request.session.login %}
+                    <li>{{ request.session.screen_name }}<a href="/logout/?next={{ request.path }}">
+                        <i class="glyphicon glyphicon-log-out"></i>注销</a></li>
+                {% else %}
+                    <li>
+                        <a href="https://api.weibo.com/oauth2/authorize?client_id=22418xx81638&response_type=code&redirect_uri=http://127.0.0.1:8000/login/?next={{ request.path }}">
+                            <i class="glyphicon glyphicon-log-in"></i>&nbsp;&nbsp;登录</a></li>
+                {% endif %}
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+{% block content %}{% endblock %}
+
+<div id="back-to-top">
+    <i class="glyphicon glyphicon-arrow-up"></i>
+</div>
+
+<footer>
+    <div class="footer" role="navigation">
+        <div class="container">
+            <div class="navbar-text">
+                <ul class="footer-text">
+                    <li><a href="#">主页</a></li>
+                    <li><a href="#">联系我们</a></li>
+                    <li><a href="#">关于博主</a></li>
+                    <li><a href="#">文档支持</a></li>
+                    <li><a href="/blog/">博客首页</a></li>
+                </ul>
+                <p>Copyright © 2018 Zhang_derek </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<script src="{% static 'jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+<script>
+    $("#back-to-top").click(function () {
+        window.scrollTo(0, 0);
+    });
+</script>
+
+
+{% block script %}{% endblock %}
+
+</body>
+</html>
+
+

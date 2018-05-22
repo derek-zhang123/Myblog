@@ -1,0 +1,10 @@
+{% extends 'blog/base.html' %}
+{% block title %}500{% endblock %}
+
+{% block content %}
+    <section class="container text-center" style="min-height:600px;">
+        <h1>500, Page Error!</h1>
+        <p>服务器错误！</p>
+        <a class="btn btn-primary" href="{% url 'blog:blog_index' %}">返回主页</a>
+    </section>
+{% endblock %}
